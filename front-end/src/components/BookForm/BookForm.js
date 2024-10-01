@@ -8,16 +8,15 @@ function BookForm() {
   const [author, setAuthor] = useState('')
   const dispatch = useDispatch()
   const handleSunbmit = (e) => {
-    e.prevenDefault()
+    e.preventDefault()
 
     if (title && author) {
       const book = {
         title: title,
         author: author,
       }
-      console.log(addBook(book))
-      dispatch(addBook(book))
 
+      dispatch(addBook(book))
       setTitle('')
       setAuthor('')
     }
