@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addBook } from '../../redux/books/actionCreators'
 import './BookFrom.css'
+import { v4 as uuidv4 } from 'uuid'
 
 function BookForm() {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const dispatch = useDispatch()
+
   const handleSunbmit = (e) => {
     e.preventDefault()
 
@@ -14,6 +16,7 @@ function BookForm() {
       const book = {
         title: title,
         author: author,
+        id: uuidv4(),
       }
 
       dispatch(addBook(book))
