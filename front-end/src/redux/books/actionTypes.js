@@ -1,3 +1,3 @@
 export const ADD_BOOK = 'ADD_BOOK'
 export const DELETE_BOOK = 'DELETE_BOOK'
-export const ADD_FAVOURITE_BOOK = 'ADD_FAVOURITE_BOOK'
+export const TOGGLE_FAVOURITE = 'TOGGLE_FAVOURITE'
