@@ -17,7 +17,6 @@ function BookForm() {
   }
   const handleSunbmit = (e) => {
     e.preventDefault()
-
     if (title && author) {
       dispatch(addBook(createBookWithId({ title, author })))
       setTitle('')
