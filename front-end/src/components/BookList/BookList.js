@@ -2,11 +2,12 @@ import './BookList.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteBook, toggleFavourite } from '../../redux/books/actionCreators'
 import { BsBookmarks, BsBookmarksFill } from 'react-icons/bs'
-import { selectTitleFilter } from '../../redux/slices(modern appr)/filterSlice'
+import { selectTitleFilter, selectAuthorFilter } from '../../redux/slices(modern appr)/filterSlice'
 
 function BookList() {
   const books = useSelector((state) => state.books)
   const titleFilter = useSelector(selectTitleFilter)
+  const authorFilter = useSelector(selectAuthorFilter)
 
   const dispatch = useDispatch()
   const handleOnDeleteBook = (id) => {
@@ -18,7 +19,9 @@ function BookList() {
 
   const filteredBooks = books.filter((book) => {
     const matchTitle = book.title.toLowerCase().includes(titleFilter.toLowerCase())
-    return matchTitle
+    const matchAuthor = book.author.toLowerCase().includes(authorFilter.toLowerCase())
+    return matchTitle && matchAuthor
+    // * '||; I'vent got any differences with &&
   })
   return (
     <div className='app-block book-list'>
