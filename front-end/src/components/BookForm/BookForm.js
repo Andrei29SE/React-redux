@@ -4,23 +4,37 @@ import { addBook } from '../../redux/books/actionCreators'
 import './BookFrom.css'
 import booksData from '../../data/books.json'
 import createBookWithId from '../../utils/createBookWithId'
+import axios from 'axios'
 
 function BookForm() {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const dispatch = useDispatch()
-
+  //add random book
   const handleOnRandom = () => {
     const randomIndex = Math.floor(Math.random() * booksData.length)
     const randomBook = booksData[randomIndex]
     dispatch(addBook(createBookWithId(randomBook)))
   }
+  // add book manually(controlled input)
   const handleSunbmit = (e) => {
     e.preventDefault()
     if (title && author) {
       dispatch(addBook(createBookWithId({ title, author })))
       setTitle('')
       setAuthor('')
+    }
+  }
+  // add random book from API
+  const handleRandomBookAPI = async () => {
+    try {
+      const res = await axios.get('http://localhost:4001/random-book')
+      if (res?.data?.title && res?.data?.author) {
+        // Another way to set up condition is (res.data&& res.data.title && res.data.author)
+        dispatch(addBook(createBookWithId(res.data)))
+      }
+    } catch (error) {
+      console.log('Error', error.message)
     }
   }
   return (
@@ -43,6 +57,9 @@ function BookForm() {
         <button type='submit'>Add Book</button>
         <button type='button' onClick={handleOnRandom}>
           Add Random Book
+        </button>
+        <button type='button' onClick={handleRandomBookAPI}>
+          Add random(API)
         </button>
       </form>
     </div>
