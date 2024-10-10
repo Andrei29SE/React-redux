@@ -58,7 +58,7 @@ function BookList() {
             <li key={book.id}>
               <div className='book-info'>
                 {++i}) {hilitghtMatch(book.title, titleFilter)} by{' '}
-                <strong>{hilitghtMatch(book.author, authorFilter)}</strong>
+                <strong>{hilitghtMatch(book.author, authorFilter)}</strong> ({book.source})
                 <div className='book-actions'>
                   <span onClick={() => handleToggleFavourite(book.id)}>
                     {book.isFavourite ? (
