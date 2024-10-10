@@ -16,6 +16,7 @@ function BookForm() {
     const randomBook = booksData[randomIndex]
     dispatch(addBook(createBookWithId(randomBook, 'random')))
   }
+
   // add book manually(controlled input)
   const handleSunbmit = (e) => {
     e.preventDefault()
@@ -25,8 +26,11 @@ function BookForm() {
       setAuthor('')
     }
   }
-  // add random book from API
-  const handleRandomBookAPI = async () => {
+
+  // thunk fuct for async fetching in Redux(this function passes to Redux via handleRandomBookAPI )
+  const thunkFunction = async (dispatch, getState) => {
+    //async actions
+
     try {
       const res = await axios.get('http://localhost:4001/random-book')
       if (res?.data?.title && res?.data?.author) {
@@ -37,6 +41,12 @@ function BookForm() {
       console.log('Error', error.message)
     }
   }
+
+  // add random book from API
+  const handleRandomBookAPI = () => {
+    dispatch(thunkFunction)
+  }
+
   return (
     <div className='app-block book-form'>
       <h2>Add a New Book</h2>
