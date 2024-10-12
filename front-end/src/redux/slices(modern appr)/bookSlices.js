@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-
+import createBookWithId from '../../utils/createBookWithId'
+import axios from 'axios'
 const initialState = []
 
 const bookSlice = createSlice({
@@ -19,9 +20,22 @@ const bookSlice = createSlice({
     },
   },
 })
-
 // reducers
 export const { addBook, deleteBook, toggleFavourite } = bookSlice.actions
+// thunk fuct for async fetching in Redux(this function passes to Redux via handleRandomBookAPI )
+export const thunkFunction = async (dispatch, getState) => {
+  //async actions
+  try {
+    const res = await axios.get('http://localhost:4001/random-book')
+    if (res?.data?.title && res?.data?.author) {
+      // Another way to set up condition is (res.data&& res.data.title && res.data.author)
+      dispatch(addBook(createBookWithId(res.data, 'API')))
+    }
+  } catch (error) {
+    console.log('Error', error.message)
+  }
+}
+
 // Subscribe functions(selectors)
 export const selectBooks = (state) => state.books
 

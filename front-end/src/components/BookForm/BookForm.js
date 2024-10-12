@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addBook } from '../../redux/slices(modern appr)/bookSlices'
+import { addBook, thunkFunction } from '../../redux/slices(modern appr)/bookSlices'
 import './BookFrom.css'
 import booksData from '../../data/books.json'
 import createBookWithId from '../../utils/createBookWithId'
-import axios from 'axios'
 
 function BookForm() {
   const [title, setTitle] = useState('')
@@ -24,21 +23,6 @@ function BookForm() {
       dispatch(addBook(createBookWithId({ title, author }, 'manual')))
       setTitle('')
       setAuthor('')
-    }
-  }
-
-  // thunk fuct for async fetching in Redux(this function passes to Redux via handleRandomBookAPI )
-  const thunkFunction = async (dispatch, getState) => {
-    //async actions
-
-    try {
-      const res = await axios.get('http://localhost:4001/random-book')
-      if (res?.data?.title && res?.data?.author) {
-        // Another way to set up condition is (res.data&& res.data.title && res.data.author)
-        dispatch(addBook(createBookWithId(res.data, 'API')))
-      }
-    } catch (error) {
-      console.log('Error', error.message)
     }
   }
 
