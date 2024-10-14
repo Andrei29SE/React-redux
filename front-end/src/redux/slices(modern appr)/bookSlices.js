@@ -4,7 +4,7 @@ import axios from 'axios'
 const initialState = []
 
 export const fetchBook = createAsyncThunk('bookManager/fetchBook', async () => {
-  const res = await axios.get('http://localhost:4004/random-book')
+  const res = await axios.get('http://localhost:4001/random-book')
   console.log(res.data)
   return res.data
 })
@@ -32,7 +32,6 @@ const bookSlice = createSlice({
         state.push(createBookWithId(action.payload, 'API'))
       }
     })
-    builder.addCase(fetchBook.rejected, (state, action) => console.log(action))
   },
 })
 // reducers
