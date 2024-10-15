@@ -4,6 +4,7 @@ import { addBook, fetchBook } from '../../redux/slices(modern appr)/bookSlices'
 import './BookFrom.css'
 import booksData from '../../data/books.json'
 import createBookWithId from '../../utils/createBookWithId'
+import { setError } from '../../redux/slices(modern appr)/errorSlice'
 
 function BookForm() {
   const [title, setTitle] = useState('')
@@ -23,6 +24,8 @@ function BookForm() {
       dispatch(addBook(createBookWithId({ title, author }, 'manual')))
       setTitle('')
       setAuthor('')
+    } else {
+      dispatch(setError('Author and Title must be fullfielded'))
     }
   }
 
