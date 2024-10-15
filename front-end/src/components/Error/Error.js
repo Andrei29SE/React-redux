@@ -8,7 +8,7 @@ function Error() {
 
   const dispatch = useDispatch()
 
-  // When error message changes toat.info appears (after rendering component and DOM itself)
+  // When error message changes toats.info appears (after rendering component and DOM itself)
   useEffect(() => {
     if (errorMassage) {
       toast.info(errorMassage)
