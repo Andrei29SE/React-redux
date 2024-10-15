@@ -31,6 +31,7 @@ const bookSlice = createSlice({
     },
   },
   // Thunkfunc in reducer (check out https://redux-toolkit.js.org/api/createAsyncThunk)
+  // Option 1
   extraReducers: (builder) => {
     builder.addCase(fetchBook.fulfilled, (state, action) => {
       if (action.payload.title && action.payload.author) {
@@ -38,7 +39,14 @@ const bookSlice = createSlice({
       }
     })
   },
+  // Option 2
+  // extraReducers: {[fetchBook.fulfilled]:(state, action) => {
+  //   if (action.payload.title && action.payload.author) {
+  //     state.push(createBookWithId(action.payload, 'API'))
+  //   }
+  // } }
 })
+
 // reducers
 export const { addBook, deleteBook, toggleFavourite } = bookSlice.actions
 
